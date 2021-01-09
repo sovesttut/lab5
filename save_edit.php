@@ -7,56 +7,57 @@
                 $id = htmlentities(mysqli_real_escape_string($link, $_POST['id']));
                 $index = htmlentities(mysqli_real_escape_string($link, $_POST['index']));
                 switch($index){
-                    case "Banks":
-                        if((isset($_POST['bank_name']))&&(isset($_POST['bank_INN']))&&(isset($_POST['bank_strana']))&&(isset($_POST['bank_class']))&&(isset($_POST['bank_obiem']))){
-                            $bank_name = htmlentities(mysqli_real_escape_string($link, $_POST['bank_name']));
-                            $bank_INN = htmlentities(mysqli_real_escape_string($link, $_POST['bank_INN']));
-                            $bank_strana = htmlentities(mysqli_real_escape_string($link, $_POST['bank_strana']));
-                            $bank_class = htmlentities(mysqli_real_escape_string($link, $_POST['bank_class']));
-                            $bank_obiem = htmlentities(mysqli_real_escape_string($link, $_POST['bank_obiem']));
-                            if((strlen($bank_name)==0)||(strlen($bank_INN)==0)||(strlen($bank_strana)==0)||(strlen($bank_class)==0)||(strlen($bank_obiem)==0)){
+                    case "film":
+                        if((isset($_POST['name']))&&(isset($_POST['genre']))&&(isset($_POST['regisseur']))&&(isset($_POST['year']))&&(isset($_POST['cost']))){
+                            $name = htmlentities(mysqli_real_escape_string($link, $_POST['name']));
+                            $genre = htmlentities(mysqli_real_escape_string($link, $_POST['genre']));
+                            $regisseur = htmlentities(mysqli_real_escape_string($link, $_POST['regisseur']));
+                            $year = htmlentities(mysqli_real_escape_string($link, $_POST['year']));
+                            $cost = htmlentities(mysqli_real_escape_string($link, $_POST['cost']));
+                            if((strlen($name)==0)||(strlen($genre)==0)||(strlen($regisseur)==0)||(strlen($year)==0)||(strlen($cost)==0)){
                                 die("Ошибка значения пусты");
                             }
-                            $query = "UPDATE $database.$index SET bank_name = '$bank_name', bank_INN = '$bank_INN', bank_strana = '$bank_strana', bank_class = '$bank_class', bank_obiem = '$bank_obiem' WHERE $database.$index.id_bank = '$id'";
+                            $query = "UPDATE $database.$index SET name = '$name', genre = '$genre', regisseur = '$regisseur', year = '$year', cost = '$cost' WHERE $database.$index.id = '$id'";
                             mysqli_query($link, $query) or die("Не могу выполнить запрос!");
                             if(mysqli_affected_rows($link)>0){
-                                echo("<p>Спасибо! Значения изменены.");
+                                echo("<p>Thanks! You added $index.");
                                 echo "<p><a href=\"index.php\"> Return</a>"; 
                             } else { 
                                 echo("Saving error. <a href=\"index.php\"> Return</a>");
                             }
                         }
                     break;
-                    case "deposit_programs":
-                        if((isset($_POST['Banks']))&&(isset($_POST['deposit_name']))&&(isset($_POST['percent']))){
-                            $Banks = htmlentities(mysqli_real_escape_string($link, $_POST['Banks']));
-                            $deposit_name = htmlentities(mysqli_real_escape_string($link, $_POST['deposit_name']));
-                            $percent = htmlentities(mysqli_real_escape_string($link, $_POST['percent']));
-                            if(($Banks=="")||(strlen($deposit_name)==0)){
+                    case "cinema":
+                        if((isset($_POST['name']))&&(isset($_POST['category']))){
+                            $name = htmlentities(mysqli_real_escape_string($link, $_POST['name']));
+                            $category = htmlentities(mysqli_real_escape_string($link, $_POST['category']));
+                            if((strlen($category)==0)||(strlen($name)==0)){
                                 die("Ошибка значения пусты");
                             }
-                            $query = "UPDATE $database.$index SET deposit_name = '$deposit_name, percent = '$percent', id_bank = '$Banks' WHERE $database.$index.id_deposit = '$id'";
+                            $query = "UPDATE $database.$index SET name = '$name', category = '$category' WHERE $database.$index.id = '$id'";
                             mysqli_query($link, $query) or die("Не могу выполнить запрос!");
                             if(mysqli_affected_rows($link)>0){
-                                echo("<p>Спасибо! Значения изменены.");
+                                echo("<p>Thanks! You added $index.");
                                 echo "<p><a href=\"index.php\"> Return</a>"; 
                             } else { 
                                 echo("Saving error. <a href=\"index.php\"> Return</a>");
                             }
                         }
                     break;
-                     case "сontribution":
-                         if((isset($_POST['deposit_programs']))&&(isset($_POST['count']))&&(isset($_POST['date']))){
-                            $deposit_programs = htmlentities(mysqli_real_escape_string($link, $_POST['deposit_programs']));
-                            $count = htmlentities(mysqli_real_escape_string($link, $_POST['count']));
-                            $date = htmlentities(mysqli_real_escape_string($link, $_POST['date']));
-                            if(($deposit_programs=="")||(strlen($count)==0)){
+                    case "session":
+                        if((isset($_POST['count_f']))&&(isset($_POST['date_s']))&&(isset($_POST['film']))&&(isset($_POST['cinema']))&&(isset($_POST['count_b']))){
+                            $date_s = htmlentities(mysqli_real_escape_string($link, $_POST['date_s']));
+                            $count_f = htmlentities(mysqli_real_escape_string($link, $_POST['count_f']));
+                            $film = htmlentities(mysqli_real_escape_string($link, $_POST['film']));
+                            $cinema = htmlentities(mysqli_real_escape_string($link, $_POST['cinema']));
+							$count_b = htmlentities(mysqli_real_escape_string($link, $_POST['count_b']));
+                            if(($film=="")||($cinema=="")){
                                 die("Ошибка значения пусты");
                             }
-                            $query = "UPDATE $database.$index SET date = '$date', id_deposit = '$deposit_programs', count='$count' WHERE $database.$index.id_сontribution = '$id'";
+                            $query = "UPDATE $database.$index SET date_s = '$date_s', film = '$film', cinema = '$cinema', count_f = '$count_f', count_b = '$count_b' WHERE $database.$index.id = '$id'";
                             mysqli_query($link, $query) or die("Не могу выполнить запрос!");
                             if(mysqli_affected_rows($link)>0){
-                                echo("<p>Спасибо! Значения изменены.");
+                                echo("<p>Thanks! You added $index.");
                                 echo "<p><a href=\"index.php\"> Return</a>"; 
                             } else { 
                                 echo("Saving error. <a href=\"index.php\"> Return</a>");
