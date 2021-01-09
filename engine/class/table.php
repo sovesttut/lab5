@@ -52,8 +52,8 @@ class Table{
                 echo("<td>$text</td>");
             }
             if($switch){
-                echo "<td><a href='/lab5/edit.php?id=". $row[0]. "& query=".$queryTab. "'>Изменить</a></td>";
-				echo "<td><a href='/lab5/delete.php?id=". $row[0]. "& query=". $queryTab. "'>Удалить</a></td>";
+                echo "<td><a href='/lab5/edit.php?id=". $row['id']. "& query=".$queryTab. "'>Изменить</a></td>";
+				echo "<td><a href='/lab5/delete.php?id=". $row['id']. "& query=". $queryTab. "'>Удалить</a></td>";
             }
 			echo "</tr>";
         }
