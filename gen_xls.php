@@ -4,18 +4,19 @@
 <?require_once 'engine/library/PHPExcel/PHPExcel/IOFactory.php'?>
 <?
 ob_end_clean();
-$title = 'Банки.Вклады';
-$array = array("№ п/п", "Наименование банка", "Страна", "Класс надежности", "Название программы", "% годовых", "Сумма всех вкладов такого типа");
+$title = 'Фильмы';
+$array = array("№ п/п",  "Название фильма", "жанр",
+"год выпуска", "название зала", "категория", "дата и время начала показа", "количество свободных мест");
 $xls = new PHPExcel();
-$xls->getProperties()->setTitle($title);
+$xls->getProperties()->setTitle("Фильмы");
 $xls->getProperties()->setSubject("lab5");
 $xls->getProperties()->setCompany("USATU");
-$xls->getProperties()->setKeywords("Банки.Вклады");
+$xls->getProperties()->setKeywords("Фильмы");
 $xls->getProperties()->setCreated("1.04.2200");
 
 $xls->setActiveSheetIndex(0);
 $sheet = $xls->getActiveSheet();
-$sheet->setTitle($title);
+$sheet->setTitle('Фильмы');
 $sheet->getPageSetup()->SetPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
 $sheet->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_PORTRAIT);
 $sheet->getPageMargins()->setTop(1);
@@ -23,18 +24,18 @@ $sheet->getPageMargins()->setRight(0.75);
 $sheet->getPageMargins()->setLeft(0.75);
 $sheet->getPageMargins()->setBottom(1);
 
-$sheet->setCellValueExplicit('A1', $title, PHPExcel_Cell_DataType::TYPE_STRING);
+$sheet->setCellValueExplicit('A1', 'Фильмы', PHPExcel_Cell_DataType::TYPE_STRING);
 $sheet->getStyle('A1')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
 $sheet->getStyle('A1')->getFill()->getStartColor()->setRGB('EEEEEE');
-$sheet->mergeCells('A1:E1');
+$sheet->mergeCells('A1:H1');
 $sheet->getStyle('A1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 for($i = 0; $i < count($array); $i++){
     $sheet->setCellValueByColumnAndRow($i, 2, $array[$i]);
     $sheet->getStyleByColumnAndRow($i, 2)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 }
 $j=3;
-$queryTab = "adv_bank_info";
-$query = "SELECT * FROM $database.$queryTab";
+$queryTab = "adv_session_info";
+$query = "SELECT * FROM $database.$queryTab  ORDER BY $database.$queryTab.id ASC";
 $result = mysqli_query($link, $query) or die("Не могу выполнить запрос!");
 while ($row=mysqli_fetch_array($result)){
     for($i = 0; $i < count($row)/2; $i++){
@@ -51,7 +52,7 @@ header("Cache-Control: no-cache, must-revalidate");
 header("Pragma: no-cache");
 ob_end_clean();
 header("Content-type: application/vnd.ms-excel");
-header("Content-Disposition: attachment; filename=Банки.Вклады.xls");
+header("Content-Disposition: attachment; filename=Фильмы.xls");
 
 $objWriter = PHPExcel_IOFactory::createWriter($xls, 'Excel2007');
 $objWriter->save('php://output');
