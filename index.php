@@ -5,40 +5,40 @@
     <body>
         <?
             echo("<div>");
-            $queryTab = "Banks";
-            $headText = "Таблица Банки";
-            $arrayTitle = array("№", "Наименование", "ИНН", "страна", "класс надежности", " объем активов", "Изменить", "Удалить");
+            $queryTab = "film";
+            $headText = "Таблица Фильмы";
+            $arrayTitle = array("№",  "Название", "жанр", "режиссёр", "год выпуска", "кассовые сборы", "Изменить", "Удалить");
             $query = "SELECT * FROM $database.$queryTab";
             $result = mysqli_query($link, $query) or die("Не могу выполнить запрос!");
             echo("<div>");
             $a = new Table($headText, $arrayTitle, $result, $queryTab, true);
-            echo("<div> <a href='new.php?Index="."Banks"."'> Добавить новый банк</a> </div>");
+            echo("<div> <a href='/lab5/new.php?Index="."film"."'> Добавить новый Фильм</a> </div>");
             echo("</div>");
             
-            $queryTab = "deposit_programs_info";
-            $headText = "Таблица Программы депозитов";
-            $arrayTitle = array("№", "Название", "% годовых", "Банк", "Изменить", "Удалить");
+            $queryTab = "cinema";
+            $headText = "Таблица Кинозалы";
+            $arrayTitle = array("№", "название зала", "категория", "Изменить", "Удалить");
             $query = "SELECT * FROM $database.$queryTab";
             $result = mysqli_query($link, $query) or die("Не могу выполнить запрос!");
             echo("<div>");
             $a = new Table($headText, $arrayTitle, $result, $queryTab, true);
-            echo("<div> <a href='new.php?Index="."deposit_programs"."'> Добавить новую программу депозита</a> </div>");
+            echo("<div> <a href='/lab5/new.php?Index="."cinema"."'> Добавить новый Кинозал</a> </div>");
             echo("</div>");
             
-            $queryTab = "сontribution_info";
-            $headText = "Таблица зачетная ведомость";
-            $arrayTitle = array("№", "Дата создания вклада", "Программа депозита", "Стартовая сумма вклада", "Изменить", "Удалить");
+            $queryTab = "session_info";
+            $headText = "Таблица Киносеансы";
+            $arrayTitle = array("№", "дата и время начала показа фильма", "фильм", "кинозал", "количество мест"," количество занятых мест", "Изменить", "Удалить");
             $query = "SELECT * FROM $database.$queryTab";
             $result = mysqli_query($link, $query) or die("Не могу выполнить запрос!");
             echo("<div>");
             $a = new Table($headText, $arrayTitle, $result, $queryTab, true);
-            echo("<div> <a href='new.php?Index="."сontribution"."'> Добавить новый вклад</a> </div>");
+            echo("<div> <a href='/lab5/new.php?Index="."session"."'> Добавить новый Киносеанс</a> </div>");
             echo("</div>");
             echo("</div>");
            
             echo("<div>");
-            echo("<div> <a href='gen_pdf.php'> Открыть PDF - файл </a> </div>");
-            echo("<div> <a href='gen_xls.php'> Загрузить XLS - файл </a> </div>");
+            echo("<div> <a href='/lab5/gen_pdf.php'> Открыть PDF - файл </a> </div>");
+            echo("<div> <a href='/lab5/gen_xls.php'> Загрузить XLS - файл </a> </div>");
             echo("</div>");
             echo("</div>");
         ?>
