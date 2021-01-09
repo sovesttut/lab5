@@ -3,14 +3,15 @@
 <?ob_end_clean();ob_clean();?>
 <?require_once 'engine/library/tcpdf/tcpdf.php';?>
 <?
-    $array = array("№ п/п", "Наименование банка", "Страна", "Класс надежности", "Название программы", "% годовых", "Сумма всех вкладов такого типа");
+    $array = array("№ п/п",  "Название фильма", "жанр",
+"год выпуска", "название зала", "категория", "дата и время начала показа", "количество свободных мест");
     ob_clean();
     error_reporting(E_ALL);
     ob_start();
-    $pdf = new TCPDF('L', 'mm', 'A3', true, 'UTF-8');
+    $pdf = new TCPDF('L', 'mm', 'A2', true, 'UTF-8');
     $pdf->setPrintHeader(false);
     $pdf->setPrintFooter(false);
-    $pdf->SetTitle('Банки.Вклады');
+    $pdf->SetTitle('Фильмы');
     $pdf->SetMargins(10, 1, 10);
     $pdf->SetFont('arial', '', 10, '', true);
     $pdf->AddPage();
@@ -18,15 +19,15 @@
     $pdf->SetDrawColor(100, 100, 0);
     $pdf->SetTextColor(000, 0, 0);
 
-    $html = '<h1>Банки.Вклады</h1><br>';
+    $html = '<h1>Фильмы </h1><br>';
     $html .= "<table border='1' width='10%'>";
     $html .= "<tr>";
     for($i = 0; $i < count($array); $i++){
         $html .= "<th width='10%'>$array[$i]</th>";
     }
     $html .= "</tr>";
-    $queryTab = "adv_bank_info";
-    $query = "SELECT * FROM $database.$queryTab";
+    $queryTab = "adv_session_info";
+    $query = "SELECT * FROM $database.$queryTab  ORDER BY $database.$queryTab.id ASC";
     $result = mysqli_query($link, $query) or die("Не могу выполнить запрос!");
     while ($row=mysqli_fetch_array($result)){
          $html .= "<tr align='center'>";
@@ -43,6 +44,6 @@
     
     
     $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
-    $pdf->Output('Банки.Вклады.pdf', 'I');
+    $pdf->Output('AutoGen.pdf', 'I');
 ?>
 <?require_once 'engine/connection/connectionEnd.php';?>
